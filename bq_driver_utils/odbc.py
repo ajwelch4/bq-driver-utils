@@ -84,9 +84,24 @@ def _connect(
 @odbc.command()
 @add_click_options(_CONNECTION_OPTIONS)
 @click.option(
-    "--sql-tables-catalog",
+    "--sql-tables-catalog-name",
     default=None,
-    help="Catalog passed to SQLTables metadata function.",
+    help="CatalogName passed to SQLTables metadata function.",
+)
+@click.option(
+    "--sql-tables-schema-name",
+    default=None,
+    help="SchemaName passed to SQLTables metadata function.",
+)
+@click.option(
+    "--sql-tables-table-name",
+    default=None,
+    help="TableName passed to SQLTables metadata function.",
+)
+@click.option(
+    "--sql-tables-table-type",
+    default=None,
+    help="TableType passed to SQLTables metadata function.",
 )
 def tables(
     connection_catalog,
@@ -94,8 +109,11 @@ def tables(
     connection_client_id,
     connection_client_secret,
     connection_additional_projects,
-    sql_tables_catalog,
-):
+    sql_tables_catalog_name,
+    sql_tables_schema_name,
+    sql_tables_table_name,
+    sql_tables_table_type,
+):  # pylint: disable=too-many-arguments
     """Call the SQLTables metadata function.
 
     https://learn.microsoft.com/en-us/sql/odbc/reference/syntax/sqltables-function
@@ -108,7 +126,12 @@ def tables(
         connection_additional_projects,
     )
     cursor = connection.cursor()
-    for row in cursor.tables(catalog=sql_tables_catalog):
+    for row in cursor.tables(
+        catalog=sql_tables_catalog_name,
+        schema=sql_tables_schema_name,
+        table=sql_tables_table_name,
+        tableType=sql_tables_table_type,
+    ):
         logger.info(
             "%s.%s.%s: %s: %s",
             row.table_cat,
@@ -116,4 +139,65 @@ def tables(
             row.table_name,
             row.table_type,
             row.remarks,
+        )
+
+
+@odbc.command()
+@add_click_options(_CONNECTION_OPTIONS)
+@click.option(
+    "--sql-tables-catalog-name",
+    default=None,
+    help="CatalogName passed to SQLColumns metadata function.",
+)
+@click.option(
+    "--sql-tables-schema-name",
+    default=None,
+    help="SchemaName passed to SQLColumns metadata function.",
+)
+@click.option(
+    "--sql-tables-table-name",
+    default=None,
+    help="TableName passed to SQLColumns metadata function.",
+)
+@click.option(
+    "--sql-tables-column-name",
+    default=None,
+    help="ColumnName passed to SQLColumns metadata function.",
+)
+def columns(
+    connection_catalog,
+    connection_refresh_token,
+    connection_client_id,
+    connection_client_secret,
+    connection_additional_projects,
+    sql_tables_catalog_name,
+    sql_tables_schema_name,
+    sql_tables_table_name,
+    sql_tables_column_name,
+):  # pylint: disable=too-many-arguments
+    """Call the SQLColumns metadata function.
+
+    https://learn.microsoft.com/en-us/sql/odbc/reference/syntax/sqlcolumns-function
+    """
+    connection = _connect(
+        connection_catalog,
+        connection_refresh_token,
+        connection_client_id,
+        connection_client_secret,
+        connection_additional_projects,
+    )
+    cursor = connection.cursor()
+    for row in cursor.columns(
+        catalog=sql_tables_catalog_name,
+        schema=sql_tables_schema_name,
+        table=sql_tables_table_name,
+        column=sql_tables_column_name,
+    ):
+        logger.info(
+            "%s.%s.%s.%s: %s",
+            row.table_cat,
+            row.table_schem,
+            row.table_name,
+            row.column_name,
+            row.type_name,
         )
