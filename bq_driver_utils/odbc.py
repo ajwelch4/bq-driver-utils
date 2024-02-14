@@ -170,10 +170,10 @@ def columns(
     connection_client_id,
     connection_client_secret,
     connection_additional_projects,
-    sql_tables_catalog_name,
-    sql_tables_schema_name,
-    sql_tables_table_name,
-    sql_tables_column_name,
+    sql_columns_catalog_name,
+    sql_columns_schema_name,
+    sql_columns_table_name,
+    sql_columns_column_name,
 ):  # pylint: disable=too-many-arguments
     """Call the SQLColumns metadata function.
 
@@ -188,10 +188,10 @@ def columns(
     )
     cursor = connection.cursor()
     for row in cursor.columns(
-        catalog=sql_tables_catalog_name,
-        schema=sql_tables_schema_name,
-        table=sql_tables_table_name,
-        column=sql_tables_column_name,
+        catalog=sql_columns_catalog_name,
+        schema=sql_columns_schema_name,
+        table=sql_columns_table_name,
+        column=sql_columns_column_name,
     ):
         logger.info(
             "%s.%s.%s.%s: %s",
