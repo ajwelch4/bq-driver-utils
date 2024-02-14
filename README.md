@@ -1,5 +1,13 @@
 # BigQuery Driver Utils
 
+## Install
+
+```shell
+git clone git@github.com:ajwelch4/bq-driver-utils.git
+cd bq-driver-utils
+poetry install
+```
+
 ## Generate Client ID and Client Secret
 
 [https://console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials)
