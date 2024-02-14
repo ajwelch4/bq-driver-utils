@@ -39,7 +39,7 @@ bq-driver odbc tables \
 ```
 <!-- markdownlint-enable -->
 
-### SQLTables Pattern Value Catalog Argument
+### SQLTables with Pattern Value Catalog Argument
 
 [https://learn.microsoft.com/en-us/sql/odbc/reference/develop-app/pattern-value-arguments](https://learn.microsoft.com/en-us/sql/odbc/reference/develop-app/pattern-value-arguments)
 
@@ -71,7 +71,7 @@ bq-driver odbc tables \
 ```
 <!-- markdownlint-enable -->
 
-### SQLTables Additional Projects
+### SQLTables with Additional Projects
 
 <!-- markdownlint-disable -->
 ```shell
@@ -92,7 +92,7 @@ bq-driver odbc tables \
 ```
 <!-- markdownlint-enable -->
 
-### SQLTables Additional Projects with Pattern Value Catalog Argument
+### SQLTables with Additional Projects and Pattern Value Catalog Argument
 
 <!-- markdownlint-disable -->
 ```shell
